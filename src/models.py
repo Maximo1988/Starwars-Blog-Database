@@ -12,6 +12,12 @@ class User(Base):
     __tablename__ = 'User'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
+    characters_id = Column(Integer, ForeignKey('Characters.id'))
+    characters = relationship(Characters)
+    Planets_Name = Column(String(50), ForeignKey('Planets.name'))
+    Planets = relationship(Planets)
+    Starships_Name = Column(String(50), ForeignKey('Starships.name'))
+    Starships = relationship(Starships)
 
 class Characters(Base):
     __tablename__ = 'Characters'
@@ -44,7 +50,6 @@ class Planets(Base):
     characters_id = Column(Integer, ForeignKey('Characters.id'))
     characters = relationship(Characters)
     pilots_id = Column(Integer, ForeignKey('Pilots.id'))
-    
 
 class Starships(Base):
     __tablename__ = 'Starships'
@@ -66,27 +71,26 @@ class Starships(Base):
     description = Column(String(50))
     pilots_id = Column(Integer, ForeignKey('Pilots.id'))
     
-
 class FavsCharacters(Base):
     __tablename__ = 'FavsCharacters'
     id = Column(Integer, primary_key=True)
     Characters_Name = Column(String(50), ForeignKey('Characters.name'))
     Characters = relationship(Characters)
-    User = relationship(User)
+    User_id = relationship(User)
 
 class FavsPlanets(Base):
     __tablename__ = 'FavsPlanets'
     id = Column(Integer, primary_key=True)
     Planets_Name = Column(String(50), ForeignKey('Planets.name'))
     Planets = relationship(Planets)
-    User = relationship(User)
+    User_id = relationship(User)
 
 class FavsStarships(Base):
     __tablename__ = 'FavsStarships'
     id = Column(Integer, primary_key=True)
     Starships_Name = Column(String(50), ForeignKey('Starships.name'))
     Starships = relationship(Starships)
-    User = relationship(User)
+    User_id = relationship(User)
 
 class Pilots(Base):
     __tablename__ = 'Pilots'
@@ -95,8 +99,6 @@ class Pilots(Base):
     Characters = relationship(Characters)
     Starship_Name = Column(String(50), ForeignKey('Starships.id'))
     Starships = relationship(Starships)
-    Planets_Name = Column(String(50), ForeignKey('Planets.id'))
-    Planets = relationship(Planets)
 
     def to_dict(self):
         return {}
