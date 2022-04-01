@@ -26,7 +26,6 @@ class Characters(Base):
     homeworld = Column(String(50))
     url = Column(String(50))
     description = Column(String(50))
-    favorite = relationship(FavsCharacters)
 
 class Planets(Base):
     __tablename__ = 'Planets'
@@ -42,11 +41,10 @@ class Planets(Base):
     name = Column(String(50))
     url = Column(String(50))
     description = Column(String(50))
-    favorite = relationship(FavsPlanets)
     characters_id = Column(Integer, ForeignKey('Characters.id'))
     characters = relationship(Characters)
     pilots_id = Column(Integer, ForeignKey('Pilots.id'))
-    pilots = relationship(Pilots)
+    
 
 class Starships(Base):
     __tablename__ = 'Starships'
@@ -66,9 +64,8 @@ class Starships(Base):
     name = Column(String(50))
     url = Column(String(50))
     description = Column(String(50))
-    favorite = relationship(FavsStarships)
     pilots_id = Column(Integer, ForeignKey('Pilots.id'))
-    pilots = relationship(Pilots)
+    
 
 class FavsCharacters(Base):
     __tablename__ = 'FavsCharacters'
