@@ -12,12 +12,6 @@ class User(Base):
     __tablename__ = 'User'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
-    characters_id = Column(Integer, ForeignKey('Characters.id'))
-    characters = relationship(Characters)
-    Planets_Name = Column(String(50), ForeignKey('Planets.name'))
-    Planets = relationship(Planets)
-    Starships_Name = Column(String(50), ForeignKey('Starships.name'))
-    Starships = relationship(Starships)
 
 class Characters(Base):
     __tablename__ = 'Characters'
@@ -32,6 +26,8 @@ class Characters(Base):
     homeworld = Column(String(50))
     url = Column(String(50))
     description = Column(String(50))
+    user_from_id = Column(Integer, ForeignKey('User.id'))
+    user = relationship(User)
 
 class Planets(Base):
     __tablename__ = 'Planets'
@@ -50,6 +46,8 @@ class Planets(Base):
     characters_id = Column(Integer, ForeignKey('Characters.id'))
     characters = relationship(Characters)
     pilots_id = Column(Integer, ForeignKey('Pilots.id'))
+    user_from_id = Column(Integer, ForeignKey('User.id'))
+    user = relationship(User)
 
 class Starships(Base):
     __tablename__ = 'Starships'
@@ -70,6 +68,8 @@ class Starships(Base):
     url = Column(String(50))
     description = Column(String(50))
     pilots_id = Column(Integer, ForeignKey('Pilots.id'))
+    user_from_id = Column(Integer, ForeignKey('User.id'))
+    user = relationship(User)
     
 class FavsCharacters(Base):
     __tablename__ = 'FavsCharacters'
